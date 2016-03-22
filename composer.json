@@ -45,10 +45,7 @@
         ]
     },
     "config": {
-        "bin-dir": "bin",
-        "platform": {
-            "php": "5.3.9"
-        }
+        "bin-dir": "bin"
     },
     "extra": {
         "symfony-app-dir": "app",
