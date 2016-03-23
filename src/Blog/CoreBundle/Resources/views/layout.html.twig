@@ -1,0 +1,26 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/core/css/main.css') }}">
+{% endblock %}
+
+{% block body %}
+    <header>
+        <p>Symfony 2 blog</p>
+        <nav>
+            <ul>
+                <li><a href="#">{{ 'home' | trans }}</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {% block sidebar %}{% endblock %}
+
+    <section>
+        {% block section %}{% endblock %}
+    </section>
+
+    <footer>
+        <p>© {{ 'now' | date('Y') }} Symfony 2 Blog</p>
+    </footer>
+{% endblock %}
