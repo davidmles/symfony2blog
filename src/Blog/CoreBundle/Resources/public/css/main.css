@@ -39,6 +39,30 @@ section {
     width: 65%;
 }
 
+article header {
+    background-color: transparent;
+    padding-left: 0;
+}
+
+article header h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+article header h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+article header h2 a {
+    color: #333;
+}
+
+article header p {
+    font-size: 14px;
+    margin: 0;
+}
+
 footer {
     position: absolute;
     left: 0;

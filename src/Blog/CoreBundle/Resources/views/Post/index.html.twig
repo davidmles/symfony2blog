@@ -3,5 +3,9 @@
 {% block title %}{{ 'post.plural' | trans }}{% endblock %}
 
 {% block section %}
-<h1>Welcome to the Post:index page</h1>
+
+    {% for post in posts %}
+        {{ include('CoreBundle:Post:_post.html.twig', { post: post }) }}
+    {% endfor %}
+
 {% endblock %}

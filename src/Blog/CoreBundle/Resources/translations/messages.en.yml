@@ -1,4 +1,8 @@
 home: Home
 
+by: by
+read.more: Read more
+
 post:
   plural: Posts
+  on: Posted on
