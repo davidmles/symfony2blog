@@ -1,1 +1,4 @@
 home: Home
+
+post:
+  plural: Posts

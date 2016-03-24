@@ -1,7 +1,7 @@
-{% extends "::base.html.twig" %}
+{% extends "CoreBundle::layout.html.twig" %}
 
-{% block title %}CoreBundle:Post:index{% endblock %}
+{% block title %}{{ 'post.plural' | trans }}{% endblock %}
 
-{% block body %}
+{% block section %}
 <h1>Welcome to the Post:index page</h1>
 {% endblock %}
