@@ -2,6 +2,16 @@
 
 {% block title %}{{ 'post.plural' | trans }}{% endblock %}
 
+{% block sidebar %}
+    <aside>
+        <h3>{{ 'post.latest' | trans }}</h3>
+
+        {% for post in latestPosts %}
+            <p><a href="#">{{ post.title }}</a></p>
+        {% endfor %}
+    </aside>
+{% endblock %}
+
 {% block section %}
 
     {% for post in posts %}
