@@ -1,0 +1,30 @@
+{% extends "CoreBundle::layout.html.twig" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block sidebar %}
+    <aside>
+        <h3>{{ 'author' | trans }}</h3>
+
+        <p>
+            <a href="#" title="{{ 'post.by.author' | trans({ '%name%': post.author.name }) }}">
+                {{ post.author.name }}
+            </a>
+        </p>
+    </aside>
+{% endblock %}
+
+{% block section %}
+
+    <article class="post">
+        <header>
+            <h1>{{ post.title }}</h1>
+            <p>
+                {{ 'post.on' | trans }} <time datetime="{{ post.createdAt | date('c') }}">{{ post.createdAt | date }}</time>
+            </p>
+        </header>
+
+        <p>{{ post.body | nl2br }}</p>
+    </article>
+
+{% endblock %}
