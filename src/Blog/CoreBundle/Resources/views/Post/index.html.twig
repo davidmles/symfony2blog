@@ -7,7 +7,7 @@
         <h3>{{ 'post.latest' | trans }}</h3>
 
         {% for post in latestPosts %}
-            <p><a href="#">{{ post.title }}</a></p>
+            <p><a href="{{ path('blog_core_post_show', { slug: post.slug }) }}">{{ post.title }}</a></p>
         {% endfor %}
     </aside>
 {% endblock %}
