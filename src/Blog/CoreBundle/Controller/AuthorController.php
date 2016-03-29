@@ -4,6 +4,7 @@ namespace Blog\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class AuthorController
@@ -11,13 +12,37 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class AuthorController extends Controller
 {
     /**
-     * @Route("/show")
+     * Show posts by author
+     *
+     * @param string $slug
+     *
+     * @throws NotFoundHttpException
+     * @return array
+     *
+     * @Route("/author/{slug}")
+     * @Template()
      */
-    public function showAction()
+    public function showAction($slug)
     {
-        return $this->render('CoreBundle:Author:show.html.twig', array(
-            // ...
-        ));
-    }
+        $author = $this->getDoctrine()->getRepository('ModelBundle:Author')->findOneBy(
+            array(
+                'slug' => $slug,
+            )
+        );
 
+        if (null === $author) {
+            throw $this->createNotFoundException('Author was not found');
+        }
+
+        $posts = $this->getDoctrine()->getRepository('ModelBundle:Post')->findBy(
+            array(
+                'author' => $author,
+            )
+        );
+
+        return array(
+            'author' => $author,
+            'posts'  => $posts,
+        );
+    }
 }
