@@ -3,8 +3,11 @@ home: Inicio
 by: por
 read.more: Leer más
 author: Autor
+author.empty.posts: Este autor no ha escrito ningún post todavía.
 
 post:
   plural: Posts
   latest: Últimos posts
   on: Publicado en
+  by: Posts por
+  by.author: Posts por %name%
