@@ -34,4 +34,8 @@
         {{ include('CoreBundle:Post:_comment.html.twig', { comment: comment }) }}
     {% endfor %}
 
+    <h4>{{ 'comment.write' | trans }}:</h4>
+
+    {{ form(form, { action: path('blog_core_post_createcomment', { slug: post.slug }) ~ '#comments' }) }}
+
 {% endblock %}
