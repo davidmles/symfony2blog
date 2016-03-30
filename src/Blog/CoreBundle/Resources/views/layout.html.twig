@@ -17,6 +17,12 @@
     {% block sidebar %}{% endblock %}
 
     <section>
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <p class="session-message">{{ message }}</p>
+            {% endfor %}
+        {% endfor %}
+
         {% block section %}{% endblock %}
     </section>
 
