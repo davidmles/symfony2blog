@@ -1,13 +1,13 @@
 <?php
 
-namespace Blog\ModelBundle\Controller;
+namespace Blog\AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Blog\ModelBundle\Entity\Author;
-use Blog\ModelBundle\Form\AuthorType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Author controller.
@@ -19,7 +19,9 @@ class AuthorController extends Controller
     /**
      * Lists all Author entities.
      *
-     * @Route("/", name="author_index")
+     * @return array
+     *
+     * @Route("/")
      * @Method("GET")
      */
     public function indexAction()
@@ -36,7 +38,11 @@ class AuthorController extends Controller
     /**
      * Creates a new Author entity.
      *
-     * @Route("/new", name="author_new")
+     * @param Request $request
+     *
+     * @return array
+     *
+     * @Route("/new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -62,7 +68,12 @@ class AuthorController extends Controller
     /**
      * Finds and displays a Author entity.
      *
-     * @Route("/{id}", name="author_show")
+     * @param Author $author
+     *
+     * @throws NotFoundHttpException
+     * @return array
+     *
+     * @Route("/{id}")
      * @Method("GET")
      */
     public function showAction(Author $author)
@@ -78,7 +89,13 @@ class AuthorController extends Controller
     /**
      * Displays a form to edit an existing Author entity.
      *
-     * @Route("/{id}/edit", name="author_edit")
+     * @param Request $request
+     * @param Author  $author
+     *
+     * @throws NotFoundHttpException
+     * @return array
+     *
+     * @Route("/{id}/edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Author $author)
@@ -105,7 +122,13 @@ class AuthorController extends Controller
     /**
      * Deletes a Author entity.
      *
-     * @Route("/{id}", name="author_delete")
+     * @param Request $request
+     * @param Author  $author
+     *
+     * @throws NotFoundHttpException
+     * @return array
+     *
+     * @Route("/{id}")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Author $author)
@@ -134,7 +157,6 @@ class AuthorController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('author_delete', array('id' => $author->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
