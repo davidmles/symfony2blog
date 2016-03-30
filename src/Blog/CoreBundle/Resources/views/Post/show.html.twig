@@ -4,7 +4,7 @@
 
 {% block sidebar %}
     <aside>
-        <h3>{{ 'author' | trans }}</h3>
+        <h3>{{ 'author.title' | trans }}</h3>
 
         <p>
             <a href="{{ path('blog_core_author_show', { slug: post.author.slug }) }}" title="{{ 'post.by.author' | trans({ '%name%': post.author.name }) }}">
@@ -26,5 +26,12 @@
 
         <p>{{ post.body | nl2br }}</p>
     </article>
+
+    <a id="comments"></a>
+    <h2>{{ 'comment.plural' | trans }}</h2>
+
+    {% for comment in post.comments %}
+        {{ include('CoreBundle:Post:_comment.html.twig', { comment: comment }) }}
+    {% endfor %}
 
 {% endblock %}
