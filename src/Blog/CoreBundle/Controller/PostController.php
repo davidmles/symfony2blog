@@ -71,6 +71,8 @@ class PostController extends Controller
      * @param Request $request
      * @param string  $slug
      *
+     * @return array
+     *
      * @Route("/{slug}/create-comment")
      * @Method("POST")
      * @Template("CoreBundle:Post:show.html.twig")
