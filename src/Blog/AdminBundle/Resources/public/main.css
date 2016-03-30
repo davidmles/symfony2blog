@@ -1,0 +1,61 @@
+header {
+    background-color: #c3c3c3;
+    padding: 10px;
+}
+
+header p {
+    font-size: 28px;
+    margin: 5px;
+}
+
+header ul {
+    margin-top: 20px;
+    padding: 5px;
+}
+
+header li {
+    display: inline;
+    list-style: none;
+    margin-right: 20px;
+    padding: 5px;
+    background-color: #434343;
+}
+
+section {
+    margin: 10px;
+    width: 65%;
+}
+
+article header {
+    background-color: transparent;
+    padding-left: 0;
+}
+
+article header h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+article header h2 a
+{
+    color: #333;
+}
+
+article header p {
+    font-size: 14px;
+    margin: 0;
+}
+
+header li a {
+    color: #e7e7e7;
+}
+
+p.session-message {
+    padding: 5px;
+    background-color: #007b00;
+    color: #fff;
+}
+
+table.records_list td {
+    padding: 10px;
+}
