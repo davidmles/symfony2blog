@@ -17,6 +17,7 @@ post:
 comment:
   singular: Comentario
   plural: Comentarios
+  write: Escribe tu comentario
 
 author:
   title: Autor
