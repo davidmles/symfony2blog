@@ -3,6 +3,8 @@ home: Inicio
 on: en
 by: por
 read.more: Leer más
+name: Nombre
+send: Enviar
 
 post:
   plural: Posts
@@ -13,6 +15,7 @@ post:
   comments: '{0} Sin comentarios|{1} %count% comentario|]1,Inf] %count% comentarios'
 
 comment:
+  singular: Comentario
   plural: Comentarios
 
 author:
