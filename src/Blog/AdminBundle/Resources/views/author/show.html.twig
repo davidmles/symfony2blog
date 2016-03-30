@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Author</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ author.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ author.name }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ author.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('author_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('author_edit', { 'id': author.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
