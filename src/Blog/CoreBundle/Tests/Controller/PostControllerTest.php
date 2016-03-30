@@ -59,13 +59,14 @@ class PostControllerTest extends WebTestCase
 
         $form = $buttonCrawlerNode->form(array(
             'blog_modelbundle_comment[authorName]' => 'A humble commenter',
-            'blog_modelbundle_comment[body]' => "Hi! I'm commenting about Symfony2!"
+            'blog_modelbundle_comment[body]' => "Hi! I'm commenting about Symfony2!",
         ));
 
         $client->submit($form);
 
         $this->assertTrue(
-            $client->getResponse()->isRedirect('/'.$post->getSlug()), 'There was no redirection after submitting the form'
+            $client->getResponse()->isRedirect('/'.$post->getSlug()),
+            'There was no redirection after submitting the form'
         );
 
         $crawler = $client->followRedirect();
