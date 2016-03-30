@@ -10,6 +10,7 @@ post:
   on: Publicado en
   by: Posts por
   by.author: Posts por %name%
+  comments: '{0} Sin comentarios|{1} %count% comentario|]1,Inf] %count% comentarios'
 
 comment:
   plural: Comentarios

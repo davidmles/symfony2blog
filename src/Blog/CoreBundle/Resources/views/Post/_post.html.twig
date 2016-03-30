@@ -4,6 +4,10 @@
         <p>
             {{ 'post.on' | trans }} <time datetime="{{ post.createdAt | date('c') }}">{{ post.createdAt | date }}</time>
             {{ 'by' | trans }} <a href="{{ path('blog_core_author_show', { slug: post.author.slug }) }}">{{ post.author.name }}</a>
+            - <a href="{{ path('blog_core_post_show', { slug: post.slug }) }}#comments">
+                {% set count = post.comments | length %}
+                {{ 'post.comments' | transchoice(count) }}
+            </a>
         </p>
     </header>
 
