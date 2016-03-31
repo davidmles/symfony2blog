@@ -2,6 +2,7 @@
 
 namespace Blog\CoreBundle\Controller;
 
+use Blog\CoreBundle\Services\PostManager;
 use Blog\ModelBundle\Entity\Comment;
 use Blog\ModelBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,8 +27,8 @@ class PostController extends Controller
      */
     public function indexAction()
     {
-        $posts = $this->getDoctrine()->getRepository('ModelBundle:Post')->findAll();
-        $latestPosts = $this->getDoctrine()->getRepository('ModelBundle:Post')->findLatest(5);
+        $posts = $this->getPostManager()->findAll();
+        $latestPosts = $this->getPostManager()->findLatest(5);
 
         return array(
             'posts' => $posts,
@@ -47,16 +48,7 @@ class PostController extends Controller
      */
     public function showAction($slug)
     {
-        $post = $this->getDoctrine()->getRepository('ModelBundle:Post')->findOneBy(
-            array(
-                'slug' => $slug,
-            )
-        );
-
-        if (null === $post) {
-            throw $this->createNotFoundException('Post was not found');
-        }
-
+        $post = $this->getPostManager()->findBySlug($slug);
         $form = $this->createForm(new CommentType());
 
         return array(
@@ -109,5 +101,15 @@ class PostController extends Controller
             'post' => $post,
             'form' => $form->createView(),
         );
+    }
+
+    /**
+     * Get Post manager
+     *
+     * @return PostManager
+     */
+    private function getPostManager()
+    {
+        return $this->get('postManager');
     }
 }
