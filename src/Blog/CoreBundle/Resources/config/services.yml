@@ -1,4 +1,8 @@
+parameters:
+    author_manager.class: Blog\CoreBundle\Services\AuthorManager
+
 services:
-#    core.example:
-#        class: Blog\CoreBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    author_manager:
+        class: %author_manager.class%
+        arguments:
+            - @doctrine.orm.entity_manager
