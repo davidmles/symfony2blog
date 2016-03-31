@@ -40,4 +40,13 @@ class SecurityController extends Controller
     public function loginCheckAction()
     {
     }
+
+    /**
+     * Logout
+     *
+     * @Route("logout")
+     */
+    public function logoutAction()
+    {
+    }
 }
