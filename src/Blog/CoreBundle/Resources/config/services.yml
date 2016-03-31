@@ -5,4 +5,4 @@ services:
     author_manager:
         class: %author_manager.class%
         arguments:
-            - @doctrine.orm.entity_manager
+            - "@doctrine.orm.entity_manager"
