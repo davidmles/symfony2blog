@@ -1,16 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'AdminBundle::layout.html.twig' %}
 
-{% block body %}
-    <h1>Post edit</h1>
+{% block title %}Edit {{ post.title }}{% endblock %}
+
+{% block section %}
+    <h1>Edit {{ post.title }}</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Update" />
     {{ form_end(edit_form) }}
 
     <ul>
         <li>
-            <a href="{{ path('post_index') }}">Back to the list</a>
+            <a href="{{ path('blog_admin_post_index') }}">Back to the list</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

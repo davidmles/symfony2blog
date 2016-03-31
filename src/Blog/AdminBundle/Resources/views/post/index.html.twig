@@ -1,14 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'AdminBundle::layout.html.twig' %}
 
-{% block body %}
+{% block title %}Posts list{% endblock %}
+
+{% block section %}
     <h1>Post list</h1>
 
     <table>
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Created at</th>
+                <th>Updated at</th>
                 <th>Title</th>
-                <th>Slug</th>
                 <th>Body</th>
                 <th>Actions</th>
             </tr>
@@ -16,17 +18,17 @@
         <tbody>
         {% for post in posts %}
             <tr>
-                <td><a href="{{ path('post_show', { 'id': post.id }) }}">{{ post.id }}</a></td>
+                <td>{{ post.createdAt | date('Y-m-d H:i:s') }}</td>
+                <td>{% if post.updatedAt %}{{ post.updatedAt | date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ post.title }}</td>
-                <td>{{ post.slug }}</td>
-                <td>{{ post.body }}</td>
+                <td>{{ post.body | truncate(150)  }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('post_show', { 'id': post.id }) }}">show</a>
+                            <a href="{{ path('blog_admin_post_show', { 'id': post.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('post_edit', { 'id': post.id }) }}">edit</a>
+                            <a href="{{ path('blog_admin_post_edit', { 'id': post.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -37,7 +39,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('post_new') }}">Create a new entry</a>
+            <a href="{{ path('blog_admin_post_new') }}">Create a new entry</a>
         </li>
     </ul>
 {% endblock %}
