@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blog\ModelBundle\Entity\Author;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -23,6 +24,7 @@ class AuthorController extends Controller
      *
      * @Route("/")
      * @Method("GET")
+     * @Template()
      */
     public function indexAction()
     {
@@ -30,9 +32,9 @@ class AuthorController extends Controller
 
         $authors = $em->getRepository('ModelBundle:Author')->findAll();
 
-        return $this->render('author/index.html.twig', array(
+        return array(
             'authors' => $authors,
-        ));
+        );
     }
 
     /**
@@ -44,6 +46,7 @@ class AuthorController extends Controller
      *
      * @Route("/new")
      * @Method({"GET", "POST"})
+     * @Template()
      */
     public function newAction(Request $request)
     {
@@ -56,13 +59,13 @@ class AuthorController extends Controller
             $em->persist($author);
             $em->flush();
 
-            return $this->redirectToRoute('author_show', array('id' => $author->getId()));
+            return $this->redirectToRoute('blog_admin_author_show', array('id' => $author->getId()));
         }
 
-        return $this->render('author/new.html.twig', array(
+        return array(
             'author' => $author,
             'form' => $form->createView(),
-        ));
+        );
     }
 
     /**
@@ -75,15 +78,16 @@ class AuthorController extends Controller
      *
      * @Route("/{id}")
      * @Method("GET")
+     * @Template()
      */
     public function showAction(Author $author)
     {
         $deleteForm = $this->createDeleteForm($author);
 
-        return $this->render('author/show.html.twig', array(
+        return array(
             'author' => $author,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -97,6 +101,7 @@ class AuthorController extends Controller
      *
      * @Route("/{id}/edit")
      * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, Author $author)
     {
@@ -109,14 +114,14 @@ class AuthorController extends Controller
             $em->persist($author);
             $em->flush();
 
-            return $this->redirectToRoute('author_edit', array('id' => $author->getId()));
+            return $this->redirectToRoute('blog_admin_author_edit', array('id' => $author->getId()));
         }
 
-        return $this->render('author/edit.html.twig', array(
+        return array(
             'author' => $author,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
@@ -142,7 +147,7 @@ class AuthorController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('author_index');
+        return $this->redirectToRoute('blog_admin_author_index');
     }
 
     /**
@@ -155,7 +160,7 @@ class AuthorController extends Controller
     private function createDeleteForm(Author $author)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('author_delete', array('id' => $author->getId())))
+            ->setAction($this->generateUrl('blog_admin_author_delete', array('id' => $author->getId())))
             ->setMethod('DELETE')
             ->getForm();
     }

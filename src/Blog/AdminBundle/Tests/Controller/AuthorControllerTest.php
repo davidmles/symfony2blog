@@ -27,7 +27,7 @@ class AuthorControllerTest extends WebTestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'blog_modelbundle_author[name]'  => 'Someone',
+            'author[name]'  => 'Someone',
         ));
 
         $client->submit($form);
@@ -45,7 +45,7 @@ class AuthorControllerTest extends WebTestCase
 
         $form = $crawler->selectButton('Update')->form(
             array(
-                'blog_modelbundle_author[name]' => 'Another one',
+                'author[name]' => 'Another one',
             )
         );
 
