@@ -63,7 +63,6 @@ class PostController extends Controller
      * @param Request $request
      * @param string  $slug
      *
-     * @throws NotFoundHttpException
      * @return array
      *
      * @Route("/{slug}/create-comment")
@@ -72,26 +71,10 @@ class PostController extends Controller
      */
     public function createCommentAction(Request $request, $slug)
     {
-        $post = $this->getDoctrine()->getRepository('ModelBundle:Post')->findOneBy(
-            array(
-                'slug' => $slug,
-            )
-        );
+        $post = $this->getPostManager()->findBySlug($slug);
+        $form = $this->getPostManager()->createComment($post, $request);
 
-        if (null === $post) {
-            throw $this->createNotFoundException('Post was not found');
-        }
-
-        $comment = new Comment();
-        $comment->setPost($post);
-
-        $form = $this->createForm(new CommentType(), $comment);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($comment);
-            $this->getDoctrine()->getManager()->flush();
-
+        if (true === $form) {
             $this->get('session')->getFlashBag()->add('success', 'Your comment was submitted successfully');
 
             return $this->redirect($this->generateUrl('blog_core_post_show', array('slug' => $post->getSlug())));
