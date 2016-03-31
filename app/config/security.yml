@@ -24,6 +24,9 @@ security:
             form_login:
                 login_path: blog_admin_security_login
                 check_path: blog_admin_security_logincheck
+            logout:
+                path: blog_admin_security_logout
+                target: /admin/post
 
         main:
             anonymous: ~
