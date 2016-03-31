@@ -1,30 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'AdminBundle::layout.html.twig' %}
 
-{% block body %}
+{% block title %}Authors list{% endblock %}
+
+{% block section %}
     <h1>Author list</h1>
 
     <table>
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Created at</th>
+                <th>Updated at</th>
                 <th>Name</th>
-                <th>Slug</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for author in authors %}
             <tr>
-                <td><a href="{{ path('author_show', { 'id': author.id }) }}">{{ author.id }}</a></td>
+                <td>{{ author.createdAt | date('Y-m-d H:i:s') }}</td>
+                <td>{% if author.updatedAt %}{{ entity.updatedAt | date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ author.name }}</td>
-                <td>{{ author.slug }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('author_show', { 'id': author.id }) }}">show</a>
+                            <a href="{{ path('blog_admin_author_show', { 'id': author.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('author_edit', { 'id': author.id }) }}">edit</a>
+                            <a href="{{ path('blog_admin_author_edit', { 'id': author.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -35,7 +37,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('author_new') }}">Create a new entry</a>
+            <a href="{{ path('blog_admin_author_new') }}">Create a new entry</a>
         </li>
     </ul>
 {% endblock %}

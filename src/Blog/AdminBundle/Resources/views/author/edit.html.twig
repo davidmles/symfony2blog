@@ -1,7 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'AdminBundle::layout.html.twig' %}
 
-{% block body %}
-    <h1>Author edit</h1>
+{% block title %}Edit {{ author.name }}{% endblock %}
+
+{% block section %}
+    <h1>Edit {{ author.name }}</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -10,7 +12,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('author_index') }}">Back to the list</a>
+            <a href="{{ path('blog_admin_author_index') }}">Back to the list</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

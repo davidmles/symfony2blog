@@ -1,31 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block title %}{{ author.name }}{% endblock %}
 
 {% block body %}
-    <h1>Author</h1>
+    <h1>{{ author.name }}</h1>
 
     <table>
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ author.id }}</td>
+                <th>Created at</th>
+                <td>{{ author.createdAt | date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updated at</th>
+                <td>{{ author.updatedAt | date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Name</th>
                 <td>{{ author.name }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ author.slug }}</td>
             </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('author_index') }}">Back to the list</a>
+            <a href="{{ path('blog_admin_author_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('author_edit', { 'id': author.id }) }}">Edit</a>
+            <a href="{{ path('blog_admin_author_edit', { 'id': author.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
