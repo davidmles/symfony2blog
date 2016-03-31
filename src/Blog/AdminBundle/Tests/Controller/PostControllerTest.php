@@ -4,52 +4,69 @@ namespace Blog\ModelBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class PostControllerTest
+ */
 class PostControllerTest extends WebTestCase
 {
-    /*
+    /**
+     * Test Post CRUD
+     */
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
-        $client = static::createClient();
+        $client = static::createClient(array(
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'admin',
+        ));
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/post/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /post/");
+        $crawler = $client->request('GET', '/admin/post/');
+        $this->assertTrue($client->getResponse()->isSuccessful(), 'The response was not successful');
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
+        // Get the author value
+        $authorValue = $crawler->filter('#blog_modelbundle_post_author option:contains("David"')->attr('value');
+
         // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'blog_modelbundle_post[field_name]'  => 'Test',
-            // ... other fields to fill
-        ));
+        $form = $crawler->selectButton('Create')->form(
+            array(
+                'post[title]'  => 'New post',
+                'post[body]'   => 'This is a new post',
+                'post[author]' => $authorValue,
+            )
+        );
 
         $client->submit($form);
         $crawler = $client->followRedirect();
 
         // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('td:contains("New post")')->count(),
+            'The new post is not showing up'
+        );
 
         // Edit the entity
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
-        $form = $crawler->selectButton('Update')->form(array(
-            'blog_modelbundle_post[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
+        $form = $crawler->selectButton('Update')->form(
+            array(
+                'post[title]' => 'Updated post',
+            )
+        );
 
         $client->submit($form);
         $crawler = $client->followRedirect();
 
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
+        // Check the element contains an attribute with value equals "Updated post"
+        $this->assertGreaterThan(0, $crawler->filter('[value="Updated post"]')->count(), 'The edited post is not showing up');
 
         // Delete the entity
         $client->submit($crawler->selectButton('Delete')->form());
         $crawler = $client->followRedirect();
 
         // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->assertNotRegExp('/Updated post/', $client->getResponse()->getContent());
     }
-
-    */
 }
