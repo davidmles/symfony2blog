@@ -15,7 +15,7 @@ class PostControllerTest extends WebTestCase
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
-        $client = static::createClient(array(
+        $client = static::createClient(array(), array(
             'PHP_AUTH_USER' => 'admin',
             'PHP_AUTH_PW'   => 'admin',
         ));
@@ -26,7 +26,7 @@ class PostControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
 
         // Get the author value
-        $authorValue = $crawler->filter('#blog_modelbundle_post_author option:contains("David"')->attr('value');
+        $authorValue = $crawler->filter('#post_author option:contains("David")')->attr('value');
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(
