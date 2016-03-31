@@ -1,13 +1,14 @@
 <?php
 
-namespace Blog\ModelBundle\Controller;
+namespace Blog\AdminBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Blog\ModelBundle\Entity\Post;
-use Blog\ModelBundle\Form\PostType;
 
 /**
  * Post controller.
@@ -19,8 +20,11 @@ class PostController extends Controller
     /**
      * Lists all Post entities.
      *
-     * @Route("/", name="post_index")
+     * @return array
+     *
+     * @Route("/")
      * @Method("GET")
+     * @Template()
      */
     public function indexAction()
     {
@@ -28,16 +32,21 @@ class PostController extends Controller
 
         $posts = $em->getRepository('ModelBundle:Post')->findAll();
 
-        return $this->render('post/index.html.twig', array(
+        return array(
             'posts' => $posts,
-        ));
+        );
     }
 
     /**
      * Creates a new Post entity.
      *
-     * @Route("/new", name="post_new")
+     * @param Request $request
+     *
+     * @return array
+     *
+     * @Route("/new")
      * @Method({"GET", "POST"})
+     * @Template()
      */
     public function newAction(Request $request)
     {
@@ -50,36 +59,47 @@ class PostController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('post_show', array('id' => $post->getId()));
+            return $this->redirectToRoute('blog_admin_post_show', array('id' => $post->getId()));
         }
 
-        return $this->render('post/new.html.twig', array(
+        return array(
             'post' => $post,
             'form' => $form->createView(),
-        ));
+        );
     }
 
     /**
      * Finds and displays a Post entity.
      *
-     * @Route("/{id}", name="post_show")
+     * @param Post $post
+     *
+     * @return array
+     *
+     * @Route("/{id}")
      * @Method("GET")
+     * @Template()
      */
     public function showAction(Post $post)
     {
         $deleteForm = $this->createDeleteForm($post);
 
-        return $this->render('post/show.html.twig', array(
-            'post' => $post,
+        return array(
+            'post'        => $post,
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("/{id}/edit", name="post_edit")
+     * @param Request $request
+     * @param Post    $post
+     *
+     * @return array
+     *
+     * @Route("/{id}/edit")
      * @Method({"GET", "POST"})
+     * @Template()
      */
     public function editAction(Request $request, Post $post)
     {
@@ -92,20 +112,25 @@ class PostController extends Controller
             $em->persist($post);
             $em->flush();
 
-            return $this->redirectToRoute('post_edit', array('id' => $post->getId()));
+            return $this->redirectToRoute('blog_admin_post_edit', array('id' => $post->getId()));
         }
 
-        return $this->render('post/edit.html.twig', array(
+        return array(
             'post' => $post,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        ));
+        );
     }
 
     /**
      * Deletes a Post entity.
      *
-     * @Route("/{id}", name="post_delete")
+     * @param Request $request
+     * @param Post    $post
+     *
+     * @return RedirectResponse
+     *
+     * @Route("/{id}")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Post $post)
@@ -119,7 +144,7 @@ class PostController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('post_index');
+        return $this->redirectToRoute('blog_admin_post_index');
     }
 
     /**
@@ -132,9 +157,8 @@ class PostController extends Controller
     private function createDeleteForm(Post $post)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('post_delete', array('id' => $post->getId())))
+            ->setAction($this->generateUrl('blog_admin_post_delete', array('id' => $post->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
