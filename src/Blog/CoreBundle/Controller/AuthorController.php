@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class AuthorController
+ *
+ * @Route("/{_locale}/author", requirements={"_locale"="en|es"}, defaults={"_locale"="en"})
  */
 class AuthorController extends Controller
 {
@@ -20,7 +22,7 @@ class AuthorController extends Controller
      *
      * @return array
      *
-     * @Route("/author/{slug}")
+     * @Route("/{slug}")
      * @Template()
      */
     public function showAction($slug)
