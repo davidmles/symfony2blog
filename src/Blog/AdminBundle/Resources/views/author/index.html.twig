@@ -18,7 +18,7 @@
         {% for author in authors %}
             <tr>
                 <td>{{ author.createdAt | date('Y-m-d H:i:s') }}</td>
-                <td>{% if author.updatedAt %}{{ entity.updatedAt | date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if author.updatedAt %}{{ author.updatedAt | date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ author.name }}</td>
                 <td>
                     <ul>
