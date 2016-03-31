@@ -40,7 +40,6 @@ class PostController extends Controller
      *
      * @param string $slug
      *
-     * @throws NotFoundHttpException
      * @return array
      *
      * @Route("/{slug}")
