@@ -1,7 +1,3 @@
-model_author:
-    resource: "@ModelBundle/Controller/AuthorController.php"
-    type:     annotation
-
 admin:
     resource: "@AdminBundle/Controller/"
     type:     annotation
